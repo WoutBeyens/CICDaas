@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: WoutBeyens/CICDaas@v1
+    - uses: WoutBeyens/CICDaas@v2
       with:
         type: 'Go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}

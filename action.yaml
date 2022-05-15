@@ -1,0 +1,80 @@
+name: 'Composite Action File'
+description: 'Greet someone'
+inputs:
+  typeoflanguage:  # type of deployment
+    required: true
+    default: 'Go'
+  dockerUsername: 
+    required: true
+  dockerPassword: 
+    required: true
+  kubeConfig:
+    required: true
+  deploymentManifest:
+    required: true
+  serviceManifest:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@master
+    
+    - uses: azure/docker-login@v1
+      with:
+        login-server: myacr4568975.azurecr.io
+        username: ${{ inputs.dockerUsername }}
+        password: ${{ inputs.dockerPassword }}
+    
+    - name: Build and push Go image to ACR
+      id: build-image
+      if: inputs.type == 'Go'
+      run: |
+        docker build "$GITHUB_WORKSPACE/website" -f  "website/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=website/Dockerfile
+        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+
+    - name: Build and push PHP image to ACR
+      id: build-image
+      if: inputs.type == 'Php'
+      run: |
+        docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
+        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+
+    - name: Build and push C# image to ACR
+      id: build-image
+      if: inputs.type == 'Dotnet'
+      run: |
+        docker build "$GITHUB_WORKSPACE/voting-app" -f  "voting-app/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=voting-app/Dockerfile
+        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+    
+    - uses: azure/k8s-set-context@v1
+      with:
+         kubeconfig: ${{ inputs.kubeConfig }}
+      id: login
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep ${{ inputs.type }} | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace ${{ inputs.type }}`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: ${{ inputs.type }}
+        container-registry-url: myacr4568975.azurecr.io
+        container-registry-username: ${{ inputs.dockerUsername }}
+        container-registry-password: ${{ inputs.dockerPassword }}
+        secret-name: devopsclustedockerauth
+       
+    - uses: azure/k8s-deploy@v1.2
+      if: inputs.type == 'Go'
+      with:
+        namespace: ${{ inputs.type }}
+        manifests: |
+          manifests/${{ inputs.deploymentManifest }}.yml
+          manifests/${{ inputs.serviceManifest }}.yml
+        images: |
+          myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+        imagepullsecrets: |
+          devopsclustedockerauth

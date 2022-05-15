@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
-    
+
     - uses: ./.github/actions/action.yaml@main
       with:
         type: 'Go'

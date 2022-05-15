@@ -1,5 +1,13 @@
 name: Workflow Go-application
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: strng
+    secrets:
+       envPAT:
+          required: true
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

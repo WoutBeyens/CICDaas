@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@v2
     
     
-    - uses: WoutBeyens/CICDaas/action.yaml@main
+    - uses: WoutBeyens/CICDaas/.github/actions/action.yaml@main
       with:
         type: 'Go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -18,7 +18,7 @@ jobs:
         deploymentManifest: goDeployment
         serviceManifest: goService
 
-    - uses: WoutBeyens/CICDaas/action.yaml@main
+    - uses: WoutBeyens/CICDaas/.github/actions/action.yaml@main
       with:
         type: 'Php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -27,7 +27,7 @@ jobs:
         deploymentManifest: phpDeployment
         serviceManifest: phpService
 
-    - uses: WoutBeyens/CICDaas/action.yaml@main
+    - uses: WoutBeyens/CICDaas/.github/actions/action.yaml@main
       with:
         type: 'Dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}

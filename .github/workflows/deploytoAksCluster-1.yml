@@ -1,3 +1,4 @@
+name: Workflow Guestbook
 on: [push]
 jobs:
   build-and-deploy:

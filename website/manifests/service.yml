@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "devopsclusteraks-d36e"
+    labels:
+        app: "devopsclusteraks-d36e"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+    selector:
+        app: "devopsclusteraks-d36e"

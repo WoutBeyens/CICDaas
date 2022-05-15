@@ -25,5 +25,4 @@ jobs:
     uses: WoutBeyens/CICDaas/.github/workflows/deploytoAksCluster.yml@main
     with:
       username: WoutBeyens
-    secrets:
-      token: ${{ secrets.TOKEN }}
+    secrets: inherit

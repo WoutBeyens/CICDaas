@@ -20,3 +20,10 @@ jobs:
     if: ${{ github.event.inputs.buildDifferentApp == 'Go' }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     uses: WoutBeyens/CICDaas/.github/workflows/deploytoAksCluster.yml@main
+    
+  call-workflow-passing-data:
+    uses: WoutBeyens/CICDaas/.github/workflows/deploytoAksCluster.yml@main
+    with:
+      username: WoutBeyens
+    secrets:
+      token: ${{ secrets.TOKEN }}

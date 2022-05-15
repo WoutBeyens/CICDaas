@@ -9,6 +9,15 @@ on:
        envPAT:
           required: true
 jobs:
+  credentials-job:
+    name: Pass input and secrets to main.yml
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ./.github/workflows/main.yml
+      with:
+         username: ${{ inputs.username }}
+         token: ${{ secrets.token }}
+            
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:

@@ -1,7 +1,7 @@
 name: 'Composite Action File'
 description: 'Greet someone'
 inputs:
-  type:  # type of deployment
+  typeoflanguage:  # type of deployment
     required: true
     default: 'Go'
   dockerUsername: 
@@ -17,7 +17,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     
     - uses: azure/docker-login@v1
       with:
@@ -26,19 +26,24 @@ runs:
         password: ${{ inputs.dockerPassword }}
     
     - name: Build and push Go image to ACR
-      id: build-image
+      shell: bash
+      id: build-image-go
       if: inputs.type == 'Go'
       run: |
         docker build "$GITHUB_WORKSPACE/website" -f  "website/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=website/Dockerfile
         docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+
     - name: Build and push PHP image to ACR
-      id: build-image
+      shell: bash
+      id: build-image-php
       if: inputs.type == 'Php'
       run: |
         docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
         docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
-    - name: Build and push .Net image to ACR
-      id: build-image
+
+    - name: Build and push C# image to ACR
+      shell: bash
+      id: build-image-dotnet
       if: inputs.type == 'Dotnet'
       run: |
         docker build "$GITHUB_WORKSPACE/voting-app" -f  "voting-app/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=voting-app/Dockerfile
@@ -56,6 +61,7 @@ runs:
         then
             echo `kubectl create namespace ${{ inputs.type }}`
         fi
+
     - uses: azure/k8s-create-secret@v1
       with:
         namespace: ${{ inputs.type }}

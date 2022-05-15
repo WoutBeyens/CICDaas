@@ -37,7 +37,7 @@ runs:
       run: |
         docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
         docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
-    - name: Build and push C# image to ACR
+    - name: Build and push .Net image to ACR
       id: build-image
       if: inputs.type == 'Dotnet'
       run: |

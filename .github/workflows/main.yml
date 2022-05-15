@@ -1,0 +1,43 @@
+name: Workflow Main
+on: workflow_call
+  secrets:
+         registry_username:
+            required: true
+         registry_password:
+            required: true
+jobs:
+  credentials-job:
+    name: Pass input and secrets to main.yml
+    runs-on: ubuntu-latest
+    steps:
+    - uses: ./.github/workflows/main.yml
+      with:
+         username: ${{ inputs.username }}
+         token: ${{ secrets.token }} 
+
+    - uses: WoutBeyens/CICDaas/action.yaml@v2
+      with:
+        type: 'Python'
+        dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+        dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+        kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
+        deploymentManifest: goDeployment
+        serviceManifest: goService
+
+    - uses: WoutBeyens/CICDaas/action.yaml@v2
+      with:
+        type: 'Go'
+        dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+        dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+        kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
+        deploymentManifest: pythonDeployment
+        serviceManifest: pythonService
+
+    - uses: WoutBeyens/CICDaas/action.yaml@v2
+      with:
+        type: 'CSharp'
+        dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+        dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+        kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
+        deploymentManifest: csharpDeployment
+        serviceManifest: csharpService

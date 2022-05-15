@@ -10,7 +10,7 @@ jobs:
 
     - uses: WoutBeyens/CICDaas@v5
       with:
-        type: 'Go'
+        type: 'go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
         dockerPassword: ${{ secrets.acr_myacr4568975_password }}
         kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}

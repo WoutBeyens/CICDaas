@@ -17,3 +17,22 @@ jobs:
         deploymentManifest: goDeployment
         serviceManifest: goService
         namespace: goNamespace
+
+      with:
+        type: 'php'
+        dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+        dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+        kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
+        deploymentManifest: phpDeployment
+        serviceManifest: phpService
+        namespace: phpNamespace
+
+    - uses: WoutBeyens/CICDaas@v1
+      with:
+        type: 'dotnet'
+        dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+        dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+        kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
+        deploymentManifest: dotnetDeployment
+        serviceManifest: dotnetService
+        namespace: dotnetNamespace

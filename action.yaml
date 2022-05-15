@@ -38,7 +38,7 @@ runs:
     - name: Build and push PHP image to ACR
       shell: bash
       id: build-image-php
-      if: inputs.type == 'Php'
+      if: inputs.type == 'php'
       run: |
         docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
         docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
@@ -46,7 +46,7 @@ runs:
     - name: Build and push C# image to ACR
       shell: bash
       id: build-image-dotnet
-      if: inputs.type == 'Dotnet'
+      if: inputs.type == 'dotnet'
       run: |
         docker build "$GITHUB_WORKSPACE/voting-app" -f  "voting-app/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=voting-app/Dockerfile
         docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}

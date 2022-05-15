@@ -17,7 +17,7 @@ jobs:
 
     - uses: WoutBeyens/CICDaas/action.yaml@v2
       with:
-        type: 'Python'
+        type: 'Go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
         dockerPassword: ${{ secrets.acr_myacr4568975_password }}
         kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
@@ -26,18 +26,18 @@ jobs:
 
     - uses: WoutBeyens/CICDaas/action.yaml@v2
       with:
-        type: 'Go'
+        type: 'Php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
         dockerPassword: ${{ secrets.acr_myacr4568975_password }}
         kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
-        deploymentManifest: pythonDeployment
-        serviceManifest: pythonService
+        deploymentManifest: phpDeployment
+        serviceManifest: phpService
 
     - uses: WoutBeyens/CICDaas/action.yaml@v2
       with:
-        type: 'CSharp'
+        type: 'Dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
         dockerPassword: ${{ secrets.acr_myacr4568975_password }}
         kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
-        deploymentManifest: csharpDeployment
-        serviceManifest: csharpService
+        deploymentManifest: dotnetDeployment
+        serviceManifest: dotnetService

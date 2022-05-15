@@ -1,13 +1,11 @@
 name: Workflow Go-application
 on: 
   workflow_call:
-    inputs:
-      username:
-        required: true
-        type: string
     secrets:
-       envPAT:
-          required: true
+      registry_username:
+         required: true
+      registry_password:
+        required: true
 jobs:
   credentials-job:
     name: Pass input and secrets to main.yml

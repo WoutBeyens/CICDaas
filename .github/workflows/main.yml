@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: WoutBeyens/CICDaas@v7
+    - uses: WoutBeyens/CICDaas@v8
       with:
         type: 'go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -16,3 +16,4 @@ jobs:
         kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
         deploymentManifest: goDeployment
         serviceManifest: goService
+        namespace: goNamespace

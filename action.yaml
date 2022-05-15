@@ -14,6 +14,8 @@ inputs:
     required: true
   serviceManifest:
     required: true
+  namespace:
+    required: true
 runs:
   using: "composite"
   steps:
@@ -54,13 +56,11 @@ runs:
          kubeconfig: ${{ inputs.kubeConfig }}
       id: login
     
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep ${{ inputs.type }} | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace ${{ inputs.type }}`
-        fi
+    - uses: azure/k8s-deploy@v1.2
+      with:
+        namespace: default
+        manifests: |
+          manifests/${{ inputs.namespace }}.yml
 
     - uses: azure/k8s-create-secret@v1
       with:

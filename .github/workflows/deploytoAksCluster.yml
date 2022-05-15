@@ -1,5 +1,5 @@
 name: Workflow Go-application
-on: workflow_dispatch
+on: workflow_call
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

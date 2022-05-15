@@ -1,3 +1,4 @@
+name: Workflow Voting Application
 on: [push]
 jobs:
   build-and-deploy:

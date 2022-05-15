@@ -1,7 +1,7 @@
 name: 'Composite Action File'
 description: 'Greet someone'
 inputs:
-  typeoflanguage:  # type of deployment
+  type:  # type of deployment
     required: true
     default: 'Go'
   dockerUsername: 

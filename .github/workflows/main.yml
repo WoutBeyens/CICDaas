@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: ./.github/actions/action.yml@master
+    - uses: ./.github/actions/action.yml@main
       with:
         type: 'Go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -17,7 +17,7 @@ jobs:
         deploymentManifest: goDeployment
         serviceManifest: goService
 
-    - uses: ./.github/actions/action.yml@master
+    - uses: ./.github/actions/action.yml@main
       with:
         type: 'Php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -26,7 +26,7 @@ jobs:
         deploymentManifest: phpDeployment
         serviceManifest: phpService
 
-    - uses: ./.github/actions/action.yml@master
+    - uses: ./.github/actions/action.yml@main
       with:
         type: 'Dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}

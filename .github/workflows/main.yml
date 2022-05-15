@@ -20,9 +20,8 @@ jobs:
     if: ${{ github.event.inputs.buildDifferentApp == 'Go' }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     uses: ./.github/workflows/deploytoAksCluster.yml
+    secrets:
+      registry_username: $${{secrets.REGISTRY_USERNAME}}
+      registry_password: ${{secrets.REGISTRY_PASSWORD}}
+      
     
-  call-workflow-passing-data:
-    uses: ./.github/workflows/deploytoAksCluster.yml
-    with:
-      username: WoutBeyens
-    secrets: inherit

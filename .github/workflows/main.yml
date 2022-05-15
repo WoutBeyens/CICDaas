@@ -8,8 +8,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup Go application
-      uses: WoutBeyens/CICDaas/action.yaml@main
+    
+    - uses: WoutBeyens/CICDaas/action.yaml@main
       with:
         type: 'Go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -18,8 +18,7 @@ jobs:
         deploymentManifest: goDeployment
         serviceManifest: goService
 
-    - name: Setup PHP application
-      uses: WoutBeyens/CICDaas/action.yaml@main
+    - uses: WoutBeyens/CICDaas/action.yaml@main
       with:
         type: 'Php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -28,8 +27,7 @@ jobs:
         deploymentManifest: phpDeployment
         serviceManifest: phpService
 
-    - name: Setup .NET application
-      uses: WoutBeyens/CICDaas/action.yaml@main
+    - uses: WoutBeyens/CICDaas/action.yaml@main
       with:
         type: 'Dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}

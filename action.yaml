@@ -1,12 +1,12 @@
-name: 'Composite Action File'
-description: 'Greet someone'
+name: "Composite Action File"
+description: "Greet someone"
 inputs:
-  type:  # type of deployment
+  type: # type of deployment
     required: true
-    default: 'go'
-  dockerUsername: 
+    default: "go"
+  dockerUsername:
     required: true
-  dockerPassword: 
+  dockerPassword:
     required: true
   kubeConfig:
     required: true
@@ -20,42 +20,42 @@ runs:
   using: "composite"
   steps:
     - uses: actions/checkout@v2
-    
+
     - uses: azure/docker-login@v1
       with:
         login-server: myacr4568975.azurecr.io
         username: ${{ inputs.dockerUsername }}
         password: ${{ inputs.dockerPassword }}
-    
+
     - name: Build and push go image to ACR
       shell: bash
       id: build-image-go
       if: inputs.type == 'go'
       run: |
-        docker build "$GITHUB_WORKSPACE/website" -f  "website/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=website/Dockerfile
-        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/website" -f  "website/Dockerfile" -t myacr4568975.azurecr.io/go:${{ github.sha }} --label dockerfile-path=website/Dockerfile
+        docker push myacr4568975.azurecr.io/go:${{ github.sha }}
 
     - name: Build and push PHP image to ACR
       shell: bash
       id: build-image-php
       if: inputs.type == 'php'
       run: |
-        docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
-        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/guestbook/php-redis" -f  "guestbook/php-redis/Dockerfile" -t myacr4568975.azurecr.io/php:${{ github.sha }} --label dockerfile-path=guestbook/php-redis/Dockerfile
+        docker push myacr4568975.azurecr.io/php:${{ github.sha }}
 
     - name: Build and push C# image to ACR
       shell: bash
       id: build-image-dotnet
       if: inputs.type == 'dotnet'
       run: |
-        docker build "$GITHUB_WORKSPACE/voting-app" -f  "voting-app/Dockerfile" -t myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }} --label dockerfile-path=voting-app/Dockerfile
-        docker push myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
-    
+        docker build "$GITHUB_WORKSPACE/voting-app" -f  "voting-app/Dockerfile" -t myacr4568975.azurecr.io/dotnet:${{ github.sha }} --label dockerfile-path=voting-app/Dockerfile
+        docker push myacr4568975.azurecr.io/dotnet:${{ github.sha }}
+
     - uses: azure/k8s-set-context@v1
       with:
-         kubeconfig: ${{ inputs.kubeConfig }}
+        kubeconfig: ${{ inputs.kubeConfig }}
       id: login
-    
+
     - uses: azure/k8s-deploy@v1.2
       with:
         namespace: default
@@ -69,7 +69,7 @@ runs:
         container-registry-username: ${{ inputs.dockerUsername }}
         container-registry-password: ${{ inputs.dockerPassword }}
         secret-name: devopsclustedockerauth
-       
+
     - uses: azure/k8s-deploy@v1.2
       with:
         namespace: ${{ inputs.type }}

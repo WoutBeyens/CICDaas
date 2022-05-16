@@ -77,6 +77,6 @@ runs:
           manifests/${{ inputs.deploymentManifest }}.yml
           manifests/${{ inputs.serviceManifest }}.yml
         images: |
-          myacr4568975.azurecr.io/devopsclusteraks:${{ github.sha }}
+          myacr4568975.azurecr.io/${{ inputs.type }}:${{ github.sha }}
         imagepullsecrets: |
           devopsclustedockerauth

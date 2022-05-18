@@ -41,6 +41,7 @@ jobs:
         deploymentManifest: dotnetDeployment
         serviceManifest: dotnetService
         namespace: dotnetNamespace
+        
     ## --- Vulnerability scanning Go-applicatie --- #
 
     - name: Go - Checkout code before vulnerability scan

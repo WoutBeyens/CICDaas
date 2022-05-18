@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
 
     - name: Build Go-application
-    - uses: WoutBeyens/CICDaas@v14
+      uses: WoutBeyens/CICDaas@v14
       with:
         type: 'go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -21,7 +21,7 @@ jobs:
         namespace: goNamespace
 
     - name: Build PHP-application
-    - uses: WoutBeyens/CICDaas@v14
+      uses: WoutBeyens/CICDaas@v14
       with:
         type: 'php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -32,7 +32,7 @@ jobs:
         namespace: phpNamespace
 
     - name: Build .NET application
-    - uses: WoutBeyens/CICDaas@v14
+      uses: WoutBeyens/CICDaas@v14
       with:
         type: 'dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}

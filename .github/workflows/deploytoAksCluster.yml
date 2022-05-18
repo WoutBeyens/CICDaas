@@ -1,20 +1,5 @@
 name: Workflow Go-application
-on: 
-  workflow_call:
-    secrets:
-      registry_username:
-         required: true
-      registry_password:
-        required: true
-jobs:
-  credentials-job:
-    name: Pass input and secrets to main.yml
-    runs-on: ubuntu-latest
-    steps:
-    - uses: ./.github/workflows/main.yml
-      with:
-         username: ${{ inputs.username }}
-         token: ${{ secrets.token }}
+on: workflow_dispatch
             
   build-and-deploy:
     runs-on: ubuntu-latest

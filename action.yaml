@@ -16,6 +16,7 @@ inputs:
     required: true
   namespace:
     required: true
+    
 runs:
   using: "composite"
   steps:

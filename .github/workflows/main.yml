@@ -42,20 +42,5 @@ jobs:
         serviceManifest: dotnetService
         namespace: dotnetNamespace
 
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Build an image from Dockerfile
-      run: |
-         docker build "$GITHUB_WORKSPACE/website" -f  "website/Dockerfile" -t myacr4568975.azurecr.io/go:${{ github.sha }} --label dockerfile-path=website/Dockerfile
-      
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: 'myacr4568975.azurecr.io/go:${{ github.sha }}'
-        format: 'table'
-        exit-code: '0'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+
 

@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: WoutBeyens/CICDaas@v12
+    - uses: WoutBeyens/CICDaas@v13
       with:
         type: 'go'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -18,7 +18,7 @@ jobs:
         serviceManifest: goService
         namespace: goNamespace
 
-    - uses: WoutBeyens/CICDaas@v12
+    - uses: WoutBeyens/CICDaas@v13
       with:
         type: 'php'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -28,7 +28,7 @@ jobs:
         serviceManifest: phpService
         namespace: phpNamespace
 
-    - uses: WoutBeyens/CICDaas@v12
+    - uses: WoutBeyens/CICDaas@v13
       with:
         type: 'dotnet'
         dockerUsername: ${{ secrets.acr_myacr4568975_username }}
@@ -39,7 +39,7 @@ jobs:
         namespace: dotnetNamespace
      
     - name: Run Trivy vulnerability scanner in repo mode
-      uses: WoutBeyens/CICDaas@v12
+      uses: WoutBeyens/CICDaas@v13
       with:
         scan-type: 'fs'
         ignore-unfixed: true

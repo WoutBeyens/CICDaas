@@ -1,5 +1,10 @@
 name: Workflow Main
-on: workflow_dispatch
+on: 
+  push:
+    branches: [ main ]
+  pull_requests:
+    branches: [ main ]
+  workflow_dispatch:
  
 jobs:
 

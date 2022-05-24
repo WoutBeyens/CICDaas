@@ -108,3 +108,39 @@ jobs:
         ignore-unfixed: true
         vuln-type: 'os,library'
         severity: 'CRITICAL,HIGH'  
+
+## --- Deploying different environments--- #
+  DeployDev:
+    name: Deploy to Dev env
+    if: github.event_name == 'pull_request'
+    needs: [build-correct-application]
+    runs-on: ubuntu-latest
+    environment:
+      name: Dev env
+      url: 'http://20.31.227.54/'
+    steps:
+      - name: Deploy
+        run: echo I am deploying!
+
+  DeployAcc:
+    name: Deploy to Acc env
+    if: github.event.ref == 'refs/heads/main'
+    needs: [build-correct-application]
+    runs-on: ubuntu-latest
+    environment:
+      name: Acc env
+      url: 'http://20.31.227.54/'
+    steps:
+      - name: Deploy
+        run: echo I am deploying!
+    
+  DeployProd:
+    name: Deploy to Prod env
+    needs: [DeployAcc]
+    runs-on: ubuntu-latest
+    environment:
+      name: Prod env
+      url: 'http://20.31.227.54/'
+    steps:
+      - name: Deploy
+        run: echo I am deploying!

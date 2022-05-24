@@ -29,7 +29,7 @@ runs:
         username: ${{ inputs.dockerUsername }}
         password: ${{ inputs.dockerPassword }}
 
-    - name: Build and push go image to ACR
+    - name: Build and push Go image to ACR
       shell: bash
       id: build-image-go
       if: inputs.type == 'go'

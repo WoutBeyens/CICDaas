@@ -159,7 +159,7 @@ jobs:
         uses: jtalk/url-health-check-action@v2.2
         with:
           # Check the following URLs one by one sequentially
-          url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.61/
+          url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/
           # Follow redirects, or just report success on 3xx status codes
           follow-redirect: false # Optional, defaults to "false"
           # Fail this action after this many failed attempts

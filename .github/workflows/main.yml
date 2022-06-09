@@ -151,22 +151,34 @@ jobs:
         run: echo I am deploying!
 
 ## --- Testing different applications--- #
-  check-multiple-no-redirect:
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-    runs-on: ${{ matrix.os }}
-    name: Check sinle, no redirect
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ./
-        with:
-          dockerUsername: ${{ secrets.acr_myacr4568975_username }}
-          dockerPassword: ${{ secrets.acr_myacr4568975_password }}
-          kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
-          deploymentManifest: goDeployment
-          serviceManifest: goService
-          namespace: goNamespace
-          # Check the following URLs one by one sequentially
-          url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/
+  # check-multiple-no-redirect:
+  #   strategy:
+  #     matrix:
+  #       os:
+  #         - ubuntu-latest
+  #   runs-on: ${{ matrix.os }}
+  #   name: Check multiple, no redirect
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: ./
+  #       with:
+  #         # Check the following URLs one by one sequentially
+  #         url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/
+
+# - name: URL Health Check
+#   uses: Jtalk/url-health-check-action@v2.2
+
+## --- Health check --- ###
+  CheckURLs:
+    name: Check the deployed services URLs
+    uses: jtalk/url-health-check-action@v2
+      with:
+        url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/
+              # Follow redirects, or just report success on 3xx status codes
+        follow-redirect: false # Optional, defaults to "false"
+        # Fail this action after this many failed attempts
+        max-attempts: 3 # Optional, defaults to 1
+        # Delay between retries
+        retry-delay: 5s # Optional, only applicable to max-attempts > 1
+        # Retry all errors, including 404. This option might trigger curl upgrade.
+        retry-all: false # Optional, defaults to "false"

@@ -162,7 +162,7 @@ jobs:
     name: Check multiple, no redirect
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: WoutBeyens/CICDaas@v14
         with:
           login-server: myacr4568975.azurecr.io
           username: ${{ secrets.acr_myacr4568975_username }}

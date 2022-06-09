@@ -149,3 +149,20 @@ jobs:
     steps:
       - name: Deploy
         run: echo I am deploying!
+
+## --- Testing different applications--- #
+  CheckMultipleApps:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    name: Health check on multiple urls
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+      with:
+        # Check the following URLs one by one sequentially
+        url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/

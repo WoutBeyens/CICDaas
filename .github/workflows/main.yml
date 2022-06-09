@@ -156,13 +156,15 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
+          - macos-latest
+          - windows-latest
     runs-on: ${{ matrix.os }}
     name: Check sinle, no redirect
     steps:
       - uses: actions/checkout@v2
       - uses: WoutBeyens/CICDaas@v14
         with:
-          username: ${{ secrets.acr_myacr4568975_username }}
-          password: ${{ secrets.acr_myacr4568975_password }}
+          dockerUsername: ${{ secrets.acr_myacr4568975_username }}
+          dockerPassword: ${{ secrets.acr_myacr4568975_password }}
           # Check the following URLs one by one sequentially
           url: http://20.31.227.54/

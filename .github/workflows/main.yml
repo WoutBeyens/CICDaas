@@ -166,6 +166,6 @@ jobs:
         with:
           login-server: myacr4568975.azurecr.io
           username: ${{ secrets.acr_myacr4568975_username }}
-          password: ${{ secrets.acr_myacr4568975_password}}
+          password: ${{ secrets.acr_myacr4568975_password }}
           # Check the following URLs one by one sequentially
           url: http://20.31.227.54/|http://20.76.9.128/|http://20.76.8.62/

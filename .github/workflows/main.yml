@@ -164,5 +164,6 @@ jobs:
         with:
           dockerUsername: ${{ secrets.acr_myacr4568975_username }}
           dockerPassword: ${{ secrets.acr_myacr4568975_password }}
+          kubeConfig: ${{ secrets.aks_devopsclusteraks_kubeConfig }}
           # Check the following URLs one by one sequentially
           url: http://20.31.227.54/
